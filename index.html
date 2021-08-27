@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container">
+        <div class="booking-form">
+            <h3>Booking Flights</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                        <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input id="first-flight-amount" class="inp-style inp-width" type="number" name="" value="1">
+                </div>
+                <div class="plus-minus-btn">
+                    <p>
+                        <button class="btn"><span onclick="flightEventHandler(true, 'first')">+</span></button>
+                        <button class="btn"><span onclick="flightEventHandler(false, 'first')">-</span></button>
+                    </p>
+                </div>
+            </div>
+
+            <div class="input-group f-class">
+                <div>
+                    <label for="">Economy ($100)</label>
+                    <input id="economy-flight-amount" class="inp-style inp-width" type="number" name="" value="1">
+                </div>
+                <div class="plus-minus-btn">
+                    <p>
+                        <button class="btn"> <span onclick="flightEventHandler(true, 'economy')">+</span></button>
+                        <button class="btn"><span onclick="flightEventHandler(false, 'economy')"> - </span></button>
+                    </p>
+                </div>
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="sub-total">$250</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="vat-amount">$25</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="grand-total">$275</p>
+                    </div>
+                </div>
+            </div>
+            <button onclick="bookButton()" class="btn-style">Book Now</button>
+        </div>
+
+        <div class="booking-content">
+            <h1>discover <br> around the world</h1>
+            <p>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quam tempora voluptatem, laudantium corporis
+                sunt ipsa saepe nihil dolorem odit voluptas deserunt, exercitationem eaque nemo fugiat quas commodi
+                dignissimos quae, ut rerum totam dolore. Soluta, esse?
+            </p>
+        </div>
+        </section>
+
+        <!--Thank You-->
+
+
+
+
+        <!--script-->
+        <script>
+            function flightEventHandler(isIncrease, type) {
+                const flightAmount = document.getElementById(type + '-flight-amount');
+                const flightCount = parseInt(flightAmount.value);
+                let flightNewCount = flightCount;
+                if (isIncrease == true) {
+                    flightNewCount = flightCount + 1;
+                }
+                if (isIncrease == false && flightCount > 0) {
+                    flightNewCount = flightCount - 1
+                }
+                flightAmount.value = flightNewCount;
+                totalCalculate();
+            }
+
+            function totalCalculate() {
+                const firstFlightCount = getFlightInput('first');
+
+                const economyFlightCount = getFlightInput('economy');
+
+                const subTotal = firstFlightCount * 150 + economyFlightCount * 100;
+                document.getElementById('sub-total').innerText = '$' + subTotal;
+
+                const vatAmount = Math.round(subTotal * 0.1);
+                document.getElementById('vat-amount').innerText = '$' + vatAmount;
+
+                const grandTotal = subTotal + vatAmount;
+                document.getElementById('grand-total').innerText = '$' + grandTotal;
+            }
+
+            function getFlightInput(type) {
+                const flightAmount = document.getElementById(type + '-flight-amount');
+                const flightCount = parseInt(flightAmount.value);
+                return flightCount;
+            }
+
+            function bookButton() {
+                alert('You Successfully Booked')
+            }
+
+
+
+
+
+            // function getFirstFlightInput(isIncrease) {
+            //     const firstClassAmount = document.getElementById('first-flight-amount')
+            //     const firstClassCount = parseInt(firstClassAmount.value)
+            //     // const firstClassNewCount = firstClassCount - 1
+            //     let firstClassNewCount = firstClassCount
+            //     if (isIncrease == true) {
+            //         firstClassNewCount = firstClassCount + 1
+            //     }
+            //     if (isIncrease == false && firstClassCount > 0) {
+            //         firstClassNewCount = firstClassCount - 1
+            //     }
+            //     firstClassAmount.value = firstClassNewCount
+            // }
+
+            // function getEconomyFlightInput(isIncrease) {
+            //     const economyFlightAmount = document.getElementById('economy-flight-amount')
+            //     const economyFlightCount = parseInt(economyFlightAmount.value)
+            //     let economyFlightNewCount = economyFlightCount;
+            //     if (isIncrease == true) {
+            //         economyFlightNewCount = economyFlightCount + 1
+            //     }
+            //     if (isIncrease == false && economyFlightCount > 0) {
+            //         economyFlightNewCount = economyFlightCount - 1
+            //     }
+            //     economyFlightAmount.value = economyFlightNewCount;
+            // }
+
+
+             // document.getElementById('economy-flight-increase').addEventListener('click', function () {
+            //     getEconomyFlightInput(true)
+
+            // })
+            // document.getElementById('economy-flight-decrease').addEventListener('click', function () {
+            //     getEconomyFlightInput(false)
+            // })
+
+              // document.getElementById('first-flight-increase').addEventListener('click', function () {
+            //     getFirstFlightInput(true)
+
+            // })
+
+            // document.getElementById('first-flight-decrease').addEventListener('click', function () {
+            //     getFirstFlightInput(false)
+            // })
+
+
+            // document.getElementById('economy-flight-increase').addEventListener('click', function () {
+            //     const economyFlightAmount = document.getElementById('economy-flight-amount')
+            //     const economyFlightCount = parseInt(economyFlightAmount.value)
+            //     const economyFlightNewCount = economyFlightCount + 1
+            //     economyFlightAmount.value = economyFlightNewCount;
+            // })
+            // document.getElementById('economy-flight-decrease').addEventListener('click', function () {
+            //     const economyFlightAmount = document.getElementById('economy-flight-amount')
+            //     const economyFlightCount = parseInt(economyFlightAmount.value)
+            //     const economyFlightNewCount = economyFlightCount - 1
+            //     economyFlightAmount.value = economyFlightNewCount;
+            // })
+
+
+            // document.getElementById('first-class-increase').addEventListener('click', function () {
+            //     const firstClassAmount = document.getElementById('first-class-amount')
+            //     const firstClassCount = parseInt(firstClassAmount.value)
+            //     const firstClassNewCount = firstClassCount + 1
+            //     firstClassAmount.value = firstClassNewCount
+
+            // })
+
+            // document.getElementById('first-class-decrease').addEventListener('click', function () {
+            //     const firstClassAmount = document.getElementById('first-class-amount')
+            //     const firstClassCount = parseInt(firstClassAmount.value)
+            //     const firstClassNewCount = firstClassCount - 1
+            //     firstClassAmount.value = firstClassNewCount
+            // })
+
+            // <!--script-->
+
+
+        </script>
+</body>
+
+</html>
